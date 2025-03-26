@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+option csharp_namespace = "NevaSms";
+
+package messageSample;
+
+// Сервис для работы с шаблонами сообщений
+service MessageSample {
+  // Создание нового шаблона сообщения
+  rpc Create (CreateMessageSampleRequest) returns (MessageSampleId);
+  // Изменение шаблона сообщения
+  rpc Edit (MessageSampleModel) returns (MessageSampleId);
+  // Удаление шаблона сообщения
+  rpc Delete (MessageSampleId) returns (MessageSampleId);
+  // Получение одной записи по id
+  rpc Info (MessageSampleId) returns (MessageSampleModel);
+  // Получение списка записей
+  rpc All (AllMessageSampleRequest) returns (AllMessageSampleResponse);
+}
+
+message CreateMessageSampleRequest {
+  string title = 1;
+  string content = 2;
+}
+
+message MessageSampleModel {
+  int32 id = 1;
+  string title = 2;
+  string content = 3;
+}
+
+message MessageSampleId {
+  int32 id = 1;
+}
+
+message AllMessageSampleRequest {
+  int32 offset = 1;
+  int32 count = 2;
+}
+
+message AllMessageSampleResponse {
+  repeated MessageSampleModel messages = 1;
+}
